@@ -14,6 +14,7 @@
 //   5. Shared XP / Level system (persisted, read by every page's header
 //      and by the analytics dashboard)
 //   6. 3D tilt effect for workspace cards
+//   7. Home-screen loading splash
 
 (function () {
   'use strict';
@@ -53,28 +54,61 @@
   var installBtn = document.getElementById('installAppBtn');
   if (installBtn) {
     var deferredPrompt = null;
-    installBtn.disabled = true;
 
-    window.addEventListener('beforeinstallprompt', function (event) {
-      event.preventDefault();
-      deferredPrompt = event;
-      installBtn.disabled = false;
-    });
+    function hideInstallButton() {
+      installBtn.classList.add('is-hidden');
+      // Wait for the fade-out transition (0.3s in style.css) to finish
+      // before pulling it out of layout entirely.
+      setTimeout(function () {
+        installBtn.style.display = 'none';
+      }, 320);
+    }
 
-    installBtn.addEventListener('click', function () {
-      if (!deferredPrompt) return;
+    function isRunningStandalone() {
+      return (
+        (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+        window.navigator.standalone === true // legacy iOS Safari flag
+      );
+    }
+
+    if (isRunningStandalone()) {
+      // Already installed (e.g. opened from the home-screen icon, or the
+      // browser tab itself is running in standalone mode) — nothing to
+      // install, so there's no reason to ever show the button.
+      hideInstallButton();
+    } else {
       installBtn.disabled = true;
-      var promptEvent = deferredPrompt;
-      promptEvent.prompt();
-      promptEvent.userChoice.finally(function () {
-        deferredPrompt = null;
+
+      window.addEventListener('beforeinstallprompt', function (event) {
+        event.preventDefault();
+        deferredPrompt = event;
+        installBtn.disabled = false;
       });
-    });
 
-    window.addEventListener('appinstalled', function () {
-      deferredPrompt = null;
-      installBtn.disabled = true;
-    });
+      installBtn.addEventListener('click', function () {
+        if (!deferredPrompt) return;
+        installBtn.disabled = true;
+        var promptEvent = deferredPrompt;
+        promptEvent.prompt();
+        promptEvent.userChoice
+          .then(function (choice) {
+            if (choice && choice.outcome === 'accepted') {
+              hideInstallButton();
+            }
+            // If dismissed, leave it disabled — this specific prompt event
+            // is spent either way; the button re-enables automatically if
+            // the browser fires a fresh beforeinstallprompt later.
+          })
+          .finally(function () {
+            deferredPrompt = null;
+          });
+      });
+
+      window.addEventListener('appinstalled', function () {
+        deferredPrompt = null;
+        hideInstallButton();
+      });
+    }
   }
 
   // ---------------------------------------------------------------------
@@ -262,6 +296,38 @@
   }
 
   // ---------------------------------------------------------------------
+  // 7. Home-screen loading splash (only present on index.html — every
+  //    other page's #pageLoader lookup below simply no-ops)
+  // ---------------------------------------------------------------------
+  function initPageLoader() {
+    var loader = document.getElementById('pageLoader');
+    if (!loader) return;
+
+    var MIN_SHOWN_MS = 450;
+    var HARD_TIMEOUT_MS = 2500; // safety net if 'load' never fires
+    var start = Date.now();
+    var hidden = false;
+
+    function hide() {
+      if (hidden) return;
+      hidden = true;
+      var elapsed = Date.now() - start;
+      var wait = Math.max(0, MIN_SHOWN_MS - elapsed);
+      setTimeout(function () {
+        loader.classList.add('is-hidden');
+        setTimeout(function () { loader.remove(); }, 450);
+      }, wait);
+    }
+
+    if (document.readyState === 'complete') {
+      hide();
+    } else {
+      window.addEventListener('load', hide);
+    }
+    setTimeout(hide, HARD_TIMEOUT_MS);
+  }
+
+  // ---------------------------------------------------------------------
   // Init
   // ---------------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', function () {
@@ -269,5 +335,6 @@
     initMenu();
     renderLevelBadge();
     initCardTilt();
+    initPageLoader();
   });
 })();
