@@ -29,6 +29,18 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <div id="pageLoader" class="page-loader" aria-hidden="true">
+    <div class="page-loader-inner">
+      <div class="page-loader-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 19h8"></path>
+          <path d="m4 17 6-6-6-6"></path>
+        </svg>
+      </div>
+      <div class="page-loader-spinner"></div>
+      <p class="page-loader-text">MultitaskCoder</p>
+    </div>
+  </div>
   <div class="min-h-screen bg-[#0a0d14] text-slate-100 transition-colors surface-page">
     <header class="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 py-3 backdrop-blur-xl border-b bg-[#0a0d14]/80 border-white/10 surface-panel">
       <a href="./index.html" class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 logo-3d" aria-label="MultitaskCoder home">
@@ -95,16 +107,17 @@
       <a href="./pages/debugger.html" class="nav-drawer-link">Debugger Arena</a>
       <a href="./pages/quizzes.html" class="nav-drawer-link">Brain Quizzes</a>
       <a href="./pages/analytics.html" class="nav-drawer-link">Performance Analytics</a>
+      <a href="./pages/sandbox.html" class="nav-drawer-link">Live Code Sandbox</a>
     </nav>
 
     <main class="relative px-6 pt-14 pb-16 text-center">
-      <div class="relative mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-white/[0.03] border-white/10 surface-panel">
+      <div class="relative mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-white/[0.03] border-white/10 surface-panel entrance-1">
         <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
         C · Python · Java Workspace
       </div>
-      <h1 class="mx-auto mt-8 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl">Practice code the <span class="text-indigo-500">professional</span> way.</h1>
-      <p class="mx-auto mt-5 max-w-xl text-base text-slate-400 text-muted">Tap any workspace to open it in a focused window — theory, 30 comparative programs, drills, debugging puzzles, and quizzes.</p>
-      <button id="installAppBtn" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 disabled:opacity-60 btn-3d">
+      <h1 class="mx-auto mt-8 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl entrance-2">Practice code the <span class="text-indigo-500">professional</span> way.</h1>
+      <p class="mx-auto mt-5 max-w-xl text-base text-slate-400 text-muted entrance-3">Tap any workspace to open it in a focused window — theory, 30 comparative programs, drills, debugging puzzles, and quizzes.</p>
+      <button id="installAppBtn" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 hover:bg-indigo-500 disabled:opacity-60 btn-3d entrance-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download" aria-hidden="true">
           <path d="M12 15V3"></path>
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -114,7 +127,7 @@
         Install app
       </button>
       <section class="mx-auto mt-14 grid max-w-2xl gap-4 text-left">
-        <a href="./pages/theory.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-emerald-500/40 bg-white/[0.03] border-white/10">
+        <a href="./pages/theory.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-emerald-500/40 bg-white/[0.03] border-white/10 entrance-card-1">
           <span class="absolute inset-y-4 left-0 w-1 rounded-full bg-emerald-500"></span>
           <div class="flex items-start gap-4">
             <div class="rounded-lg p-2 text-white bg-emerald-500">
@@ -134,7 +147,7 @@
             </div>
           </div>
         </a>
-        <a href="./pages/typing.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-indigo-500/40 bg-white/[0.03] border-white/10">
+        <a href="./pages/typing.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-indigo-500/40 bg-white/[0.03] border-white/10 entrance-card-2">
           <span class="absolute inset-y-4 left-0 w-1 rounded-full bg-indigo-500"></span>
           <div class="flex items-start gap-4">
             <div class="rounded-lg p-2 text-white bg-indigo-500">
@@ -153,7 +166,7 @@
             </div>
           </div>
         </a>
-        <a href="./pages/debugger.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-rose-500/40 bg-white/[0.03] border-white/10">
+        <a href="./pages/debugger.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-rose-500/40 bg-white/[0.03] border-white/10 entrance-card-3">
           <span class="absolute inset-y-4 left-0 w-1 rounded-full bg-rose-500"></span>
           <div class="flex items-start gap-4">
             <div class="rounded-lg p-2 text-white bg-rose-500">
@@ -182,7 +195,7 @@
             </div>
           </div>
         </a>
-        <a href="./pages/quizzes.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-amber-500/40 bg-white/[0.03] border-white/10">
+        <a href="./pages/quizzes.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-amber-500/40 bg-white/[0.03] border-white/10 entrance-card-4">
           <span class="absolute inset-y-4 left-0 w-1 rounded-full bg-amber-500"></span>
           <div class="flex items-start gap-4">
             <div class="rounded-lg p-2 text-white bg-amber-500">
@@ -208,7 +221,7 @@
             </div>
           </div>
         </a>
-        <a href="./pages/analytics.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-sky-500/40 bg-white/[0.03] border-white/10">
+        <a href="./pages/analytics.html" class="workspace-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:ring-2 ring-sky-500/40 bg-white/[0.03] border-white/10 entrance-card-5">
           <span class="absolute inset-y-4 left-0 w-1 rounded-full bg-sky-500"></span>
           <div class="flex items-start gap-4">
             <div class="rounded-lg p-2 text-white bg-sky-500">
@@ -227,6 +240,25 @@
                 </svg>
               </div>
               <p class="mt-1 text-sm text-slate-400 text-muted">Track streaks, accuracy &amp; XP.</p>
+            </div>
+          </div>
+        </a>
+        <a href="./pages/sandbox.html" class="workspace-card sandbox-card surface-panel group relative overflow-hidden rounded-2xl border p-5 pl-6 text-left shadow-xl shadow-black/20 transition hover:-translate-y-0.5 bg-white/[0.03] border-white/10 entrance-card-6">
+          <span class="absolute inset-y-4 left-0 w-1 rounded-full sandbox-card-accent-bar"></span>
+          <div class="flex items-start gap-4">
+            <div class="rounded-lg p-2 text-white sandbox-card-icon-bg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play" aria-hidden="true">
+                <polygon points="6 3 20 12 6 21 6 3"></polygon>
+              </svg>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-3">
+                <h2 class="text-lg font-bold">Live Code Sandbox</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right text-slate-400 transition group-hover:translate-x-0.5" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </div>
+              <p class="mt-1 text-sm text-slate-400 text-muted">Run real Python, right in your browser.</p>
             </div>
           </div>
         </a>
