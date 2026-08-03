@@ -3,7 +3,7 @@
 // repeat visits. Bump CACHE_NAME whenever any cached file changes so old
 // clients pick up the new version instead of a stale cache.
 
-const CACHE_NAME = 'multitaskcoder-v1';
+const CACHE_NAME = 'multitaskcoder-v3';
 
 const APP_SHELL = [
   './',
@@ -22,7 +22,9 @@ const APP_SHELL = [
   './pages/quizzes.html',
   './pages/quizzes.js',
   './pages/analytics.html',
-  './pages/analytics.js'
+  './pages/analytics.js',
+  './pages/sandbox.html',
+  './pages/sandbox.js'
 ];
 
 self.addEventListener('install', (event) => {
